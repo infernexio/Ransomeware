@@ -25,10 +25,13 @@ with open('.key.key', "rb") as keyf:
     key = keyf.read()
 
 for file in encfiles:
-    with open(file, "rb") as f:
-        contents = f.read()
+    try:
+        with open(file, "rb") as f:
+            contents = f.read()
     
-    decrypted = Fernet(key).decrypt(contents)
+        decrypted = Fernet(key).decrypt(contents)
 
-    with open(file,"wb") as f:
-        f.write(decrypted)
+        with open(file,"wb") as f:
+            f.write(decrypted)
+    except:
+        print("can't access", file)
